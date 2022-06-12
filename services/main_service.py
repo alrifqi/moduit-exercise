@@ -14,7 +14,7 @@ async def get_endpoint_two():
 async def get_endpoint_three():
     resp = moduit_repository.get_three_endpoint()
     resp = resp.json()
-    print(resp)
+    resp = _flatten_endpoint_three(resp)
     return resp
 
 def _filter_response_two(resp):
@@ -34,4 +34,16 @@ def _filter_tags_sport(resp):
 
         if 'Sports' in r['tags']:
             data.append(r)
+    return data
+
+def _flatten_endpoint_three(datas):
+    data = []
+    dt = {}
+    for d in datas:
+        if 'items' not in d:
+            continue
+        items = d['items']
+        del d['items']
+        for item in items:
+            data.append({ **d, **item })
     return data

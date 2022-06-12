@@ -1,0 +1,1 @@
+from .moduit_repository import get_first_endpoint as moduit_get_first_endpoint
